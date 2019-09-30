@@ -13,11 +13,12 @@ function filterLogsByEnv(logs, env) {
 function filterLogsOnDate(logs, dateFilter) {
   const filteredLogs = []
   const parsedDateFilter = new Date(dateFilter)
+  const parsedDateFilterwoffset = new Date(parsedDateFilter.getTime() + Math.abs(parsedDateFilter.getTimezoneOffset() * 60000))
 
   logs.forEach((log) => {
     const timestampDate = new Date(log.timestamp)
-
-    if (parsedDateFilter.toDateString() === timestampDate.toDateString()) {
+    const timestampDatewoffset = new Date(timestampDate.getTime() + Math.abs(timestampDate.getTimezoneOffset() * 60000))
+    if (parsedDateFilterwoffset.toDateString() === timestampDatewoffset.toDateString()) {
       filteredLogs.push(log)
     }
   })
